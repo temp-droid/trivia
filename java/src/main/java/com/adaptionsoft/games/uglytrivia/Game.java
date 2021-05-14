@@ -1,5 +1,9 @@
 package com.adaptionsoft.games.uglytrivia;
 
+import com.adaptionsoft.games.uglytrivia.question.Question;
+import com.adaptionsoft.games.uglytrivia.question.QuestionDispenser;
+import com.adaptionsoft.games.uglytrivia.question.TopicChooser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,7 +122,9 @@ public class Game
 
     private void askQuestion()
     {
-        questionDispenser.askQuestion(currentPlayer().position());
+        Question question = questionDispenser.dispense(currentPlayer().position());
+
+        System.out.println(question);
     }
 
     private void incrementCurrentPlayerPurse()
@@ -161,7 +167,7 @@ public class Game
 
     private void displayCurrentCategory()
     {
-        System.out.println("The category is " + CategoryChooser.currentCategory(currentPlayer().position()));
+        System.out.println("The category is " + TopicChooser.topic(currentPlayer().position()));
     }
 
     private void displayCurrentPlayerNewLocation()

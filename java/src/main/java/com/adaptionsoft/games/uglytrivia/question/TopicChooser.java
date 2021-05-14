@@ -1,24 +1,26 @@
-package com.adaptionsoft.games.uglytrivia;
+package com.adaptionsoft.games.uglytrivia.question;
 
 import java.util.stream.IntStream;
 
-public class CategoryChooser
+import static com.adaptionsoft.games.uglytrivia.question.Topic.*;
+
+public class TopicChooser
 {
-    public static String currentCategory(final int position)
+    public static Topic topic(final int position)
     {
         if (currentCategoryIsPop(position))
         {
-            return "Pop";
+            return POP;
         }
         if (currentCategoryIsScience(position))
         {
-            return "Science";
+            return SCIENCE;
         }
         if (currentCategoryIsSports(position))
         {
-            return "Sports";
+            return SPORTS;
         }
-        return "Rock";
+        return ROCK;
     }
 
     private static boolean currentCategoryIsPop(final int position)

@@ -2,7 +2,7 @@ package com.adaptionsoft.games.trivia;
 
 import com.adaptionsoft.games.uglytrivia.Game;
 import com.adaptionsoft.games.uglytrivia.Player;
-import com.adaptionsoft.games.uglytrivia.QuestionDispenser;
+import com.adaptionsoft.games.uglytrivia.question.QuestionDispenser;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

@@ -1,14 +1,19 @@
-package com.adaptionsoft.games.uglytrivia;
+package com.adaptionsoft.games.uglytrivia.question;
 
 public class Question
 {
-    private final String topic;
+    private final Topic topic;
     private final int number;
 
-    public Question(final String topic, final int number)
+    public Question(final Topic topic, final int number)
     {
         this.topic = topic;
         this.number = number;
+    }
+
+    public Topic topic()
+    {
+        return topic;
     }
 
     @Override

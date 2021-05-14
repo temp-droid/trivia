@@ -2,8 +2,8 @@ package com.adaptionsoft.games.trivia.runner;
 
 import com.adaptionsoft.games.uglytrivia.Game;
 import com.adaptionsoft.games.uglytrivia.Player;
-import com.adaptionsoft.games.uglytrivia.QuestionDispenser;
 import com.adaptionsoft.games.uglytrivia.Roll;
+import com.adaptionsoft.games.uglytrivia.question.QuestionDispenser;
 
 import java.util.Random;
 
