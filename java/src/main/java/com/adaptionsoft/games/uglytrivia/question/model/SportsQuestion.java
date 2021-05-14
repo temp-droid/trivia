@@ -1,6 +1,6 @@
-package com.adaptionsoft.games.uglytrivia.question;
+package com.adaptionsoft.games.uglytrivia.question.model;
 
-import static com.adaptionsoft.games.uglytrivia.question.Topic.SPORTS;
+import static com.adaptionsoft.games.uglytrivia.question.model.Topic.SPORTS;
 
 public class SportsQuestion extends Question
 {

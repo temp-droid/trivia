@@ -1,8 +1,10 @@
 package com.adaptionsoft.games.uglytrivia.question;
 
+import com.adaptionsoft.games.uglytrivia.question.model.Topic;
+
 import java.util.stream.IntStream;
 
-import static com.adaptionsoft.games.uglytrivia.question.Topic.*;
+import static com.adaptionsoft.games.uglytrivia.question.model.Topic.*;
 
 public class TopicChooser
 {

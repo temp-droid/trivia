@@ -1,4 +1,4 @@
-package com.adaptionsoft.games.uglytrivia.question;
+package com.adaptionsoft.games.uglytrivia.question.model;
 
 public class Question
 {

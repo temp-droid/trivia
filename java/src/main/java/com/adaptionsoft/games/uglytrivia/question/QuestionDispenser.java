@@ -1,5 +1,7 @@
 package com.adaptionsoft.games.uglytrivia.question;
 
+import com.adaptionsoft.games.uglytrivia.question.model.*;
+
 import java.util.LinkedList;
 import java.util.function.Predicate;
 import java.util.function.Supplier;

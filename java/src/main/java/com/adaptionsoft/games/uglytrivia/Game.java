@@ -1,8 +1,8 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import com.adaptionsoft.games.uglytrivia.question.Question;
 import com.adaptionsoft.games.uglytrivia.question.QuestionDispenser;
 import com.adaptionsoft.games.uglytrivia.question.TopicChooser;
+import com.adaptionsoft.games.uglytrivia.question.model.Question;
 
 import java.util.ArrayList;
 import java.util.List;
