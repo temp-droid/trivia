@@ -43,25 +43,16 @@ public class Game
     {
         players.add(player);
 
-        System.out.println(player.name() + " was added");
-        System.out.println("They are player number " + howManyPlayers());
+        displayAddedPlayer(player);
     }
 
     public void roll(int roll)
     {
-        System.out.println(currentPlayer() + " is the current player");
-        System.out.println("They have rolled a " + roll);
+        displayCurrentPlayerRoll(roll);
 
-        if (currentPlayer().inPenaltyBox())
+        if (currentPlayer().inPenaltyBox() && !currentPlayerIsFreed(roll))
         {
-            if (!isGettingOutOfPenaltyBox(roll))
-            {
-                System.out.println(currentPlayer() + " is not getting out of the penalty box");
-                return;
-            }
-
-            System.out.println(currentPlayer() + " is getting out of the penalty box");
-            currentPlayer().inPenaltyBox(false);
+            return;
         }
 
         doRoll(roll);
@@ -85,12 +76,35 @@ public class Game
 
     public boolean wrongAnswer()
     {
-        System.out.println("Question was incorrectly answered");
-        System.out.println(currentPlayer() + " was sent to the penalty box");
-        currentPlayer().inPenaltyBox(true);
+        sendCurrentPlayerToPenaltyBox();
 
         nextPlayer();
         return true;
+    }
+
+    private void sendCurrentPlayerToPenaltyBox()
+    {
+        System.out.println("Question was incorrectly answered");
+        System.out.println(currentPlayer() + " was sent to the penalty box");
+        currentPlayer().inPenaltyBox(true);
+    }
+
+    private boolean currentPlayerIsFreed(final int roll)
+    {
+        if (!isGettingOutOfPenaltyBox(roll))
+        {
+            System.out.println(currentPlayer() + " is not getting out of the penalty box");
+            return false;
+        }
+
+        setCurrentPlayerFree();
+        return true;
+    }
+
+    private void setCurrentPlayerFree()
+    {
+        System.out.println(currentPlayer() + " is getting out of the penalty box");
+        currentPlayer().inPenaltyBox(false);
     }
 
     private int howManyPlayers()
@@ -101,11 +115,6 @@ public class Game
     private boolean isGettingOutOfPenaltyBox(final int roll)
     {
         return (roll % 2 != 0);
-    }
-
-    private void displayCurrentCategory()
-    {
-        System.out.println("The category is " + CategoryChooser.currentCategory(currentPlayer().position()));
     }
 
     private void doRoll(final int roll)
@@ -139,19 +148,21 @@ public class Game
     {
         System.out.println("Answer was correct!!!!");
         currentPlayer().incrementPurse();
-        System.out.println(currentPlayer()
-                + " now has "
-                + currentPlayer().purse()
-                + " Gold Coins.");
+        System.out.println(currentPlayer() + " now has " + currentPlayer().purse() + " Gold Coins.");
     }
 
     private void nextPlayer()
     {
         currentPlayer++;
-        if (currentPlayer == players.size())
+        if (lastPlayer())
         {
             currentPlayer = 0;
         }
+    }
+
+    private boolean lastPlayer()
+    {
+        return currentPlayer == players.size();
     }
 
     private Player currentPlayer()
@@ -159,10 +170,25 @@ public class Game
         return players.get(currentPlayer);
     }
 
+    private void displayAddedPlayer(final Player player)
+    {
+        System.out.println(player.name() + " was added");
+        System.out.println("They are player number " + howManyPlayers());
+    }
+
+    private void displayCurrentPlayerRoll(final int roll)
+    {
+        System.out.println(currentPlayer() + " is the current player");
+        System.out.println("They have rolled a " + roll);
+    }
+
+    private void displayCurrentCategory()
+    {
+        System.out.println("The category is " + CategoryChooser.currentCategory(currentPlayer().position()));
+    }
+
     private void displayCurrentPlayerNewLocation()
     {
-        System.out.println(currentPlayer()
-                + "'s new location is "
-                + currentPlayer().position());
+        System.out.println(currentPlayer() + "'s new location is " + currentPlayer().position());
     }
 }
