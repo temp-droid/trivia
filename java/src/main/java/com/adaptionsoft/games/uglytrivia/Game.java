@@ -37,7 +37,7 @@ public class Game
         displayAddedPlayer(player);
     }
 
-    public void roll(int roll)
+    public void roll(final Roll roll)
     {
         displayCurrentPlayerRoll(roll);
 
@@ -80,7 +80,7 @@ public class Game
         currentPlayer().inPenaltyBox(true);
     }
 
-    private boolean currentPlayerIsFreed(final int roll)
+    private boolean currentPlayerIsFreed(final Roll roll)
     {
         if (!isGettingOutOfPenaltyBox(roll))
         {
@@ -103,12 +103,12 @@ public class Game
         return players.size();
     }
 
-    private boolean isGettingOutOfPenaltyBox(final int roll)
+    private boolean isGettingOutOfPenaltyBox(final Roll roll)
     {
-        return (roll % 2 != 0);
+        return (roll.value() % 2 != 0);
     }
 
-    private void doRoll(final int roll)
+    private void doRoll(final Roll roll)
     {
         currentPlayer().move(roll);
         displayCurrentPlayerNewLocation();
@@ -153,10 +153,10 @@ public class Game
         System.out.println("They are player number " + howManyPlayers());
     }
 
-    private void displayCurrentPlayerRoll(final int roll)
+    private void displayCurrentPlayerRoll(final Roll roll)
     {
         System.out.println(currentPlayer() + " is the current player");
-        System.out.println("They have rolled a " + roll);
+        System.out.println("They have rolled a " + roll.value());
     }
 
     private void displayCurrentCategory()

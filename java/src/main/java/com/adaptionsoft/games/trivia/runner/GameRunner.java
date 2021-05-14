@@ -3,6 +3,7 @@ package com.adaptionsoft.games.trivia.runner;
 import com.adaptionsoft.games.uglytrivia.Game;
 import com.adaptionsoft.games.uglytrivia.Player;
 import com.adaptionsoft.games.uglytrivia.QuestionDispenser;
+import com.adaptionsoft.games.uglytrivia.Roll;
 
 import java.util.Random;
 
@@ -28,7 +29,7 @@ public class GameRunner
         boolean notAWinner;
         do
         {
-            aGame.roll(random.nextInt(5) + 1);
+            aGame.roll(new Roll(random.nextInt(5) + 1));
 
             if (random.nextInt(9) == 7)
             {

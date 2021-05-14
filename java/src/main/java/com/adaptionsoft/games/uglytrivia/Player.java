@@ -28,22 +28,23 @@ public class Player
         return position;
     }
 
-    public void move(final int roll) {
+    public void move(final Roll roll)
+    {
         increasePosition(roll);
         if (position > 11)
         {
-            decreasePosition(12);
+            decreasePosition(new Roll(12));
         }
     }
 
-    private void increasePosition(final int roll)
+    private void increasePosition(final Roll roll)
     {
-        this.position += roll;
+        this.position += roll.value();
     }
 
-    private void decreasePosition(final int roll)
+    private void decreasePosition(final Roll roll)
     {
-        this.position -= roll;
+        this.position -= roll.value();
     }
 
     public int purse()
