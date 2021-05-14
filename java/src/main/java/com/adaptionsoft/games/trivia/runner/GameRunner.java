@@ -2,6 +2,7 @@ package com.adaptionsoft.games.trivia.runner;
 
 import com.adaptionsoft.games.uglytrivia.Game;
 import com.adaptionsoft.games.uglytrivia.Player;
+import com.adaptionsoft.games.uglytrivia.QuestionDispenser;
 
 import java.util.Random;
 
@@ -10,26 +11,26 @@ public class GameRunner
 
     public static void main(String[] args)
     {
-        Random rand = new Random();
-        playGame(rand);
+        Random random = new Random();
+        playGame(random);
     }
 
-    public static void playGame(final Random rand)
+    public static void playGame(final Random random)
     {
         Player chet = new Player("Chet");
         Player pat = new Player("Pat");
+        QuestionDispenser dispenser = new QuestionDispenser();
 
-        Game aGame = new Game(chet, pat);
+        Game aGame = new Game(chet, pat, dispenser);
 
         aGame.add(new Player("Sue"));
 
         boolean notAWinner;
         do
         {
+            aGame.roll(random.nextInt(5) + 1);
 
-            aGame.roll(rand.nextInt(5) + 1);
-
-            if (rand.nextInt(9) == 7)
+            if (random.nextInt(9) == 7)
             {
                 notAWinner = aGame.wrongAnswer();
             }

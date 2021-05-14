@@ -30,7 +30,7 @@ public class Player
 
     public void move(final int roll) {
         increasePosition(roll);
-        if (position() > 11)
+        if (position > 11)
         {
             decreasePosition(12);
         }

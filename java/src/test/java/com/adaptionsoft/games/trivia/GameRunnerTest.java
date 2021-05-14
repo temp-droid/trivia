@@ -11,7 +11,6 @@ import java.util.stream.IntStream;
 
 public class GameRunnerTest
 {
-
     @Test
     public void playGame()
     {

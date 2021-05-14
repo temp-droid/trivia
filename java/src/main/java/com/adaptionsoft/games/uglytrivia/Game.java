@@ -1,42 +1,33 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Game
 {
     private final List<Player> players;
 
-    private final LinkedList<String> popQuestions = new LinkedList<>();
-    private final LinkedList<String> scienceQuestions = new LinkedList<>();
-    private final LinkedList<String> sportsQuestions = new LinkedList<>();
-    private final LinkedList<String> rockQuestions = new LinkedList<>();
+    private final QuestionDispenser questionDispenser;
 
     private int currentPlayer = 0;
 
-    public Game(Player playerOne, Player playerTwo)
+    public Game(Player playerOne, Player playerTwo, QuestionDispenser questionDispenser)
     {
-        if (playerOne == null || playerTwo == null) {
+        if (playerOne == null || playerTwo == null)
+        {
             throw new IllegalArgumentException("Players cannot be null");
         }
 
-        players = new ArrayList<>();
+        if (questionDispenser == null)
+        {
+            throw new IllegalArgumentException("A question dispenser needs to be provided");
+        }
+
+        this.players = new ArrayList<>();
         add(playerOne);
         add(playerTwo);
 
-        initQuestions();
-    }
-
-    private void initQuestions()
-    {
-        for (int i = 0; i < 50; i++)
-        {
-            popQuestions.addLast("Pop Question " + i);
-            scienceQuestions.addLast("Science Question " + i);
-            sportsQuestions.addLast("Sports Question " + i);
-            rockQuestions.addLast("Rock Question " + i);
-        }
+        this.questionDispenser = questionDispenser;
     }
 
     public void add(final Player player)
@@ -127,21 +118,7 @@ public class Game
 
     private void askQuestion()
     {
-        switch (CategoryChooser.currentCategory(currentPlayer().position()))
-        {
-            case "Pop":
-                System.out.println(popQuestions.removeFirst());
-                break;
-            case "Science":
-                System.out.println(scienceQuestions.removeFirst());
-                break;
-            case "Sports":
-                System.out.println(sportsQuestions.removeFirst());
-                break;
-            case "Rock":
-                System.out.println(rockQuestions.removeFirst());
-                break;
-        }
+        questionDispenser.askQuestion(currentPlayer().position());
     }
 
     private void incrementCurrentPlayerPurse()
