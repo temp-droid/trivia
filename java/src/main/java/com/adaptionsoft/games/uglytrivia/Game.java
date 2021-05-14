@@ -14,7 +14,6 @@ public class Game
     private final LinkedList<String> rockQuestions = new LinkedList<>();
 
     private int currentPlayer = 0;
-    private boolean isGettingOutOfPenaltyBox;
 
     public Game(Player playerOne, Player playerTwo)
     {
@@ -53,23 +52,55 @@ public class Game
         System.out.println(currentPlayer() + " is the current player");
         System.out.println("They have rolled a " + roll);
 
-        isGettingOutOfPenaltyBox = (roll % 2 != 0);
         if (currentPlayer().inPenaltyBox())
         {
-            if (!isGettingOutOfPenaltyBox)
+            if (!isGettingOutOfPenaltyBox(roll))
             {
                 System.out.println(currentPlayer() + " is not getting out of the penalty box");
                 return;
             }
+
             System.out.println(currentPlayer() + " is getting out of the penalty box");
+            currentPlayer().inPenaltyBox(false);
         }
 
         doRoll(roll);
     }
 
+    public boolean wasCorrectlyAnswered()
+    {
+        if (currentPlayer().inPenaltyBox())
+        {
+            nextPlayer();
+            return true;
+        }
+
+        incrementCurrentPlayerPurse();
+
+        boolean winner = currentPlayer().isWinner();
+        nextPlayer();
+
+        return winner;
+    }
+
+    public boolean wrongAnswer()
+    {
+        System.out.println("Question was incorrectly answered");
+        System.out.println(currentPlayer() + " was sent to the penalty box");
+        currentPlayer().inPenaltyBox(true);
+
+        nextPlayer();
+        return true;
+    }
+
     private int howManyPlayers()
     {
         return players.size();
+    }
+
+    private boolean isGettingOutOfPenaltyBox(final int roll)
+    {
+        return (roll % 2 != 0);
     }
 
     private void displayCurrentCategory()
@@ -104,22 +135,6 @@ public class Game
         }
     }
 
-    public boolean wasCorrectlyAnswered()
-    {
-        if (currentPlayer().inPenaltyBox() && !isGettingOutOfPenaltyBox)
-        {
-            nextPlayer();
-            return true;
-        }
-
-        incrementCurrentPlayerPurse();
-
-        boolean winner = currentPlayer().isWinner();
-        nextPlayer();
-
-        return winner;
-    }
-
     private void incrementCurrentPlayerPurse()
     {
         System.out.println("Answer was correct!!!!");
@@ -128,16 +143,6 @@ public class Game
                 + " now has "
                 + currentPlayer().purse()
                 + " Gold Coins.");
-    }
-
-    public boolean wrongAnswer()
-    {
-        System.out.println("Question was incorrectly answered");
-        System.out.println(currentPlayer() + " was sent to the penalty box");
-        currentPlayer().inPenaltyBox(true);
-
-        nextPlayer();
-        return true;
     }
 
     private void nextPlayer()
