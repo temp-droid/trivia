@@ -1,6 +1,7 @@
 package com.adaptionsoft.games.trivia.runner;
 
 import com.adaptionsoft.games.uglytrivia.Game;
+import com.adaptionsoft.games.uglytrivia.Player;
 
 import java.util.Random;
 
@@ -15,11 +16,12 @@ public class GameRunner
 
     public static void playGame(final Random rand)
     {
-        Game aGame = new Game();
+        Player chet = new Player("Chet");
+        Player pat = new Player("Pat");
 
-        aGame.add("Chet");
-        aGame.add("Pat");
-        aGame.add("Sue");
+        Game aGame = new Game(chet, pat);
+
+        aGame.add(new Player("Sue"));
 
         boolean notAWinner;
         do
