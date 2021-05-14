@@ -17,15 +17,7 @@ public class Game
 
     public Game(Player playerOne, Player playerTwo, QuestionDispenser questionDispenser)
     {
-        if (playerOne == null || playerTwo == null)
-        {
-            throw new IllegalArgumentException("Players cannot be null");
-        }
-
-        if (questionDispenser == null)
-        {
-            throw new IllegalArgumentException("A question dispenser needs to be provided");
-        }
+        validateInputs(playerOne, playerTwo, questionDispenser);
 
         this.players = new ArrayList<>();
         add(playerOne);
@@ -151,6 +143,19 @@ public class Game
     private Player currentPlayer()
     {
         return players.get(currentPlayer);
+    }
+
+    private void validateInputs(final Player playerOne, final Player playerTwo, final QuestionDispenser questionDispenser)
+    {
+        if (playerOne == null || playerTwo == null)
+        {
+            throw new IllegalArgumentException("Players cannot be null");
+        }
+
+        if (questionDispenser == null)
+        {
+            throw new IllegalArgumentException("A question dispenser needs to be provided");
+        }
     }
 
     private void displayAddedPlayer(final Player player)
