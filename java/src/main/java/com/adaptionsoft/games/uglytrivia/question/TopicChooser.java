@@ -4,7 +4,7 @@ import com.adaptionsoft.games.uglytrivia.question.model.Topic;
 
 public class TopicChooser
 {
-    public static Topic topic(final int position)
+    public Topic topic(final int position)
     {
         Topic[] topics = Topic.values();
         final int numberOfTopics = topics.length;

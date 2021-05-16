@@ -19,10 +19,8 @@ public class QuestionDispenser
         initQuestions();
     }
 
-    public Question dispense(final int position)
+    public Question dispense(final Topic topic)
     {
-        Topic topic = TopicChooser.topic(position);
-
         Question question = questions.stream()
                 .filter(hasTopic(topic))
                 .findFirst()

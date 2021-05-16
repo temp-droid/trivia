@@ -4,6 +4,7 @@ import com.adaptionsoft.games.uglytrivia.Game;
 import com.adaptionsoft.games.uglytrivia.Player;
 import com.adaptionsoft.games.uglytrivia.Roll;
 import com.adaptionsoft.games.uglytrivia.question.QuestionDispenser;
+import com.adaptionsoft.games.uglytrivia.question.TopicChooser;
 
 import java.util.Random;
 
@@ -20,9 +21,10 @@ public class GameRunner
     {
         Player chet = new Player("Chet");
         Player pat = new Player("Pat");
+        TopicChooser topicChooser = new TopicChooser();
         QuestionDispenser dispenser = new QuestionDispenser();
 
-        Game aGame = new Game(chet, pat, dispenser);
+        Game aGame = new Game(chet, pat, topicChooser, dispenser);
 
         aGame.add(new Player("Sue"));
 

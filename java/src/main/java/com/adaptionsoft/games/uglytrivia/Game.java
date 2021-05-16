@@ -3,6 +3,7 @@ package com.adaptionsoft.games.uglytrivia;
 import com.adaptionsoft.games.uglytrivia.question.QuestionDispenser;
 import com.adaptionsoft.games.uglytrivia.question.TopicChooser;
 import com.adaptionsoft.games.uglytrivia.question.model.Question;
+import com.adaptionsoft.games.uglytrivia.question.model.Topic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,18 +12,20 @@ public class Game
 {
     private final List<Player> players;
 
+    private final TopicChooser topicChooser;
     private final QuestionDispenser questionDispenser;
 
     private int currentPlayer = 0;
 
-    public Game(Player playerOne, Player playerTwo, QuestionDispenser questionDispenser)
+    public Game(Player playerOne, Player playerTwo, TopicChooser topicChooser, QuestionDispenser questionDispenser)
     {
-        validateInputs(playerOne, playerTwo, questionDispenser);
+        validateInputs(playerOne, playerTwo, topicChooser, questionDispenser);
 
         this.players = new ArrayList<>();
         add(playerOne);
         add(playerTwo);
 
+        this.topicChooser = topicChooser;
         this.questionDispenser = questionDispenser;
     }
 
@@ -37,7 +40,7 @@ public class Game
     {
         displayCurrentPlayerRoll(roll);
 
-        if (currentPlayer().inPenaltyBox() && !currentPlayerIsFreed(roll))
+        if (currentPlayerStaysInPenaltyBox(roll))
         {
             return;
         }
@@ -74,6 +77,11 @@ public class Game
         System.out.println("Question was incorrectly answered");
         System.out.println(currentPlayer() + " was sent to the penalty box");
         currentPlayer().inPenaltyBox(true);
+    }
+
+    private boolean currentPlayerStaysInPenaltyBox(final Roll roll)
+    {
+        return currentPlayer().inPenaltyBox() && !currentPlayerIsFreed(roll);
     }
 
     private boolean currentPlayerIsFreed(final Roll roll)
@@ -114,7 +122,8 @@ public class Game
 
     private void askQuestion()
     {
-        Question question = questionDispenser.dispense(currentPlayer().position());
+        Topic topic = topicChooser.topic(currentPlayer().position());
+        Question question = questionDispenser.dispense(topic);
 
         System.out.println(question);
     }
@@ -145,11 +154,16 @@ public class Game
         return players.get(currentPlayer);
     }
 
-    private void validateInputs(final Player playerOne, final Player playerTwo, final QuestionDispenser questionDispenser)
+    private void validateInputs(final Player playerOne, final Player playerTwo, final TopicChooser topicChooser, final QuestionDispenser questionDispenser)
     {
         if (playerOne == null || playerTwo == null)
         {
             throw new IllegalArgumentException("Players cannot be null");
+        }
+
+        if (topicChooser == null)
+        {
+            throw new IllegalArgumentException("A topic chooser needs to be provided");
         }
 
         if (questionDispenser == null)
@@ -172,7 +186,7 @@ public class Game
 
     private void displayCurrentCategory()
     {
-        System.out.println("The category is " + TopicChooser.topic(currentPlayer().position()));
+        System.out.println("The category is " + topicChooser.topic(currentPlayer().position()));
     }
 
     private void displayCurrentPlayerNewLocation()
